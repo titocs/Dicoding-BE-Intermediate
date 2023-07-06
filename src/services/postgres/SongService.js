@@ -6,7 +6,7 @@ const utils = require('../../utils/index');
 const NotFoundError = require('../../exception/NotFoundError');
 const InvariantError = require('../../exception/InvariantError');
 
-class MusicServices {
+class SongServices {
   constructor() {
     this._pool = new Pool();
   }
@@ -92,4 +92,4 @@ class MusicServices {
   }
 }
 
-module.exports = MusicServices;
+module.exports = SongServices;
