@@ -15,7 +15,6 @@ class SongServices {
     title, year, performer, genre, duration, albumId,
   }) {
     const id = `song_${nanoid()}`;
-
     const query = {
       text: 'INSERT INTO songs VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING id',
       values: [id, title, year, performer, genre, duration, albumId],
@@ -45,7 +44,6 @@ class SongServices {
     }
 
     const result = await this._pool.query(query);
-
     return result.rows;
   }
 
