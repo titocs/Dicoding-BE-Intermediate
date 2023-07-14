@@ -7,7 +7,7 @@ const InvariantError = require('../../exception/InvariantError');
 const NotFoundError = require('../../exception/NotFoundError');
 const AuthenticationError = require('../../exception/AuthenticationError');
 
-class UserService {
+class UserServices {
   constructor() {
     this._pool = new Pool();
   }
@@ -70,4 +70,4 @@ class UserService {
   }
 }
 
-module.exports = UserService;
+module.exports = UserServices;

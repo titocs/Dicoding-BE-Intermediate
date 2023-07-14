@@ -1,9 +1,9 @@
 /* eslint-disable object-shorthand */
 /* eslint-disable no-underscore-dangle */
 class AuthenticationHandler {
-  constructor(authenticationsService, userService, tokenManager, validator) {
-    this._authenticationsService = authenticationsService;
-    this._userService = userService;
+  constructor(authenticationServices, userServices, tokenManager, validator) {
+    this._authenticationServices = authenticationServices;
+    this._userServices = userServices;
     this._tokenManager = tokenManager;
     this._validator = validator;
   }
@@ -11,12 +11,13 @@ class AuthenticationHandler {
   async postAuthenticationHandler(request, h) {
     this._validator.validatePostAuthenticationPayload(request.payload);
 
-    const id = await this._userService.verifyUserCredential(request.payload);
+    const { username, password } = request.payload;
+    const id = await this._userServices.verifyUserCredential(username, password);
 
     const accessToken = this._tokenManager.generateAccessToken({ id });
     const refreshToken = this._tokenManager.generateRefreshToken({ id });
 
-    await this._authenticationsService.addRefreshToken(refreshToken);
+    await this._authenticationServices.addRefreshToken(refreshToken);
     const response = h.response({
       status: 'success',
       message: 'Authentication berhasil ditambahkan',
@@ -32,7 +33,7 @@ class AuthenticationHandler {
   async putAuthenticationHandler(request) {
     this._validator.validatePutAuthenticationPayload(request.payload);
     const { refreshToken } = request.payload;
-    await this._authenticationsService.verifyRefreshToken(refreshToken);
+    await this._authenticationServices.verifyRefreshToken(refreshToken);
     const { id } = this._tokenManager.verifyRefreshToken(refreshToken);
 
     const accessToken = this._tokenManager.generateAccessToken({ id });
@@ -48,8 +49,8 @@ class AuthenticationHandler {
   async deleteAuthenticationHandler(request) {
     this._validator.validateDeleteAuthenticationPayload(request.payload);
     const { refreshToken } = request.payload;
-    await this._authenticationsService.verifyRefreshToken(refreshToken);
-    await this._authenticationsService.deleteRefreshToken(refreshToken);
+    await this._authenticationServices.verifyRefreshToken(refreshToken);
+    await this._authenticationServices.deleteRefreshToken(refreshToken);
 
     return {
       status: 'success',
