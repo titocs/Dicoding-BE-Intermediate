@@ -5,17 +5,16 @@ const InvariantError = require('../../exception/InvariantError');
 const NotFoundError = require('../../exception/NotFoundError');
 const AuthorizationError = require('../../exception/AuthorizationError');
 
-class PlaylistService {
+class PlaylistServices {
   constructor(collaborationService) {
     this._pool = new Pool();
     this._collaborationService = collaborationService;
   }
 
   async addPlaylist({ name, owner }) {
-    const id = `playlist-${nanoid}`;
-
+    const id = `playlist-${nanoid(16)}`;
     const query = {
-      text: 'INSERT INTO playlists VALUES($1, $2, $3, $4) RETURNING id',
+      text: 'INSERT INTO playlists VALUES($1, $2, $3) RETURNING id',
       values: [id, name, owner],
     };
     const result = await this._pool.query(query);
@@ -27,14 +26,13 @@ class PlaylistService {
 
   async getPlaylists(owner) {
     const query = {
-      text: `SELECT id, name, FROM playlists
-      LEFT JOIN collaborations ON collaborations.playlist_id = playlists.id
-      WHERE playlists.owner = $1 OR collaborations.user_id = $1
-      GROUP BY playlists.id`,
+      text: `SELECT playlists.id, playlists.name, users.username
+              FROM playlists
+              JOIN users ON playlists.owner = users.id WHERE owner = $1`,
       values: [owner],
     };
     const result = await this._pool.query(query);
-    return result;
+    return result.rows;
   }
 
   async verifyPlaylistOwner(id, owner) {
@@ -83,4 +81,4 @@ class PlaylistService {
   }
 }
 
-module.exports = PlaylistService;
+module.exports = PlaylistServices;
