@@ -9,6 +9,7 @@ class SongHandler {
 
   async postSongHandler(request, h) {
     this._validator.validateSongPayload(request.payload);
+
     const {
       title, year, performer, genre, duration = null, albumId = null,
     } = request.payload;
@@ -58,6 +59,7 @@ class SongHandler {
 
   async putSongByIdHandler(request, h) {
     this._validator.validateSongPayload(request.payload);
+
     const { id } = request.params;
 
     await this._service.editSongById(id, request.payload);
@@ -72,6 +74,7 @@ class SongHandler {
 
   async deleteSongByIdHandler(request, h) {
     const { id } = request.params;
+
     await this._service.deleteSongById(id);
 
     const response = h.response({

@@ -10,7 +10,9 @@ class UserHandler {
 
   async postUserHandler(request, h) {
     this._validator.validateUserPayload(request.payload);
+
     const userId = await this._service.addUser(request.payload);
+
     const response = h.response({
       status: 'success',
       message: 'User berhasil ditambahkan',

@@ -1,5 +1,5 @@
-/* eslint-disable no-sequences */
 /* eslint-disable no-unused-expressions */
+/* eslint-disable no-sequences */
 /* eslint-disable no-underscore-dangle */
 class AlbumHandler {
   constructor(service, validator) {
@@ -9,9 +9,7 @@ class AlbumHandler {
 
   async postAlbumHandler(request, h) {
     this._validator.validateAlbumPayload(request.payload);
-
     const albumId = await this._service.addAlbums(request.payload);
-
     const response = h.response({
       status: 'success',
       message: 'Sukses menambahkan album',
@@ -26,7 +24,6 @@ class AlbumHandler {
   async getAlbumByIdHandler(request, h) {
     const { id } = request.params;
     const album = await this._service.getAlbumsById(id);
-
     const response = h.response({
       status: 'success',
       data: {
@@ -40,9 +37,7 @@ class AlbumHandler {
   async putAlbumByIdHandler(request, h) {
     this._validator.validateAlbumPayload(request.payload);
     const { id } = request.params;
-
     await this._service.editAlbumById(id, request.payload);
-
     const response = h.response({
       status: 'success',
       message: 'Sukses memperbarui album',
@@ -54,7 +49,6 @@ class AlbumHandler {
   async deleteAlbumByIdHandler(request, h) {
     const { id } = request.params;
     await this._service.deleteAlbumById(id);
-
     const response = h.response({
       status: 'success',
       message: 'Berhasil menghapus album',

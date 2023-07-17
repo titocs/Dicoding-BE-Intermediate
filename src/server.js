@@ -119,6 +119,7 @@ const init = async () => {
       options: {
         collaborationServices,
         playlistServices,
+        userServices,
         validator: CollaborationValidator,
       },
     },
