@@ -1,9 +1,9 @@
 /* eslint-disable object-shorthand */
 /* eslint-disable no-underscore-dangle */
 class CollaborationHandler {
-  constructor(collaborationsService, playlistService, validator) {
-    this._collaborationsService = collaborationsService;
-    this._playlistService = playlistService;
+  constructor(collaborationServices, playlistServices, validator) {
+    this._collaborationServices = collaborationServices;
+    this._playlistServices = playlistServices;
     this._validator = validator;
   }
 
@@ -12,9 +12,8 @@ class CollaborationHandler {
     const { id: credentialId } = request.auth.credentials;
     const { playlistId, userId } = request.payload;
 
-    this._playlistService.verifyNoteOwner(playlistId, credentialId);
-    await this._notesService.verifyNoteOwner(playlistId, credentialId);
-    const collaborationId = await this._collaborationsService.addCollaboration(playlistId, userId);
+    await this._playlistServices.verifyPlaylistOwner(playlistId, credentialId);
+    const collaborationId = await this._collaborationServices.addCollaboration(playlistId, userId);
     const response = h.response({
       status: 'success',
       message: 'Kolaborasi berhasil ditambahkan',
@@ -31,8 +30,8 @@ class CollaborationHandler {
     const { id: credentialId } = request.auth.credentials;
     const { playlistId, userId } = request.payload;
 
-    await this._playlistService.verifyNoteOwner(playlistId, credentialId);
-    await this._collaborationsService.deleteCollaboration(playlistId, userId);
+    await this._playlistServices.verifyPlaylistOwner(playlistId, credentialId);
+    await this._collaborationServices.deleteCollaboration(playlistId, userId);
 
     return {
       status: 'success',

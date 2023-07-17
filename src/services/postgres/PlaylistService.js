@@ -84,11 +84,6 @@ class PlaylistServices {
     return result.rows;
   }
 
-  async verifyPlaylistAccess(playlistId, userId) {
-    await this.verifyPlaylistOwner(playlistId, userId);
-    await this._collaborationService.verifyCollaborator(playlistId, userId);
-  }
-
   async getSongInPlaylist(id) {
     const query = {
       text: `SELECT
@@ -100,9 +95,9 @@ class PlaylistServices {
               songs.performer
             FROM
               playlists
-              INNER JOIN users ON playlists.owner = users.id
-              INNER JOIN playlist_songs ON playlists.id = playlist_songs.playlist_id
-              INNER JOIN songs ON playlist_songs.song_id = songs.id
+            INNER JOIN users ON playlists.owner = users.id
+            INNER JOIN playlist_songs ON playlists.id = playlist_songs.playlist_id
+            INNER JOIN songs ON playlist_songs.song_id = songs.id
             WHERE
               playlists.id = $1`,
       values: [id],
@@ -144,6 +139,11 @@ class PlaylistServices {
     if (result.rows.length === 0) {
       throw new InvariantError('Playlist tidak ditemukan');
     }
+  }
+
+  async verifyPlaylistAccess(playlistId, userId) {
+    await this.verifyPlaylistOwner(playlistId, userId);
+    await this._collaborationService.verifyCollaborator(playlistId, userId);
   }
 }
 
