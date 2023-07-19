@@ -1,15 +1,15 @@
 /* eslint-disable camelcase */
 
-exports.shorthands = undefined;
+exports.shorthands = undefined
 
 exports.up = (pgm) => {
   pgm.addColumn('playlists', {
     owner: {
-      type: 'VARCHAR(50)',
-    },
-  });
-};
+      type: 'VARCHAR(50)'
+    }
+  })
+}
 
 exports.down = (pgm) => {
-  pgm.dropColumn('playlists', 'owner');
-};
+  pgm.dropColumn('playlists', 'owner')
+}

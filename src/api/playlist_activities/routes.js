@@ -4,9 +4,9 @@ const routes = (handler) => [
     path: '/playlists/{id}/activities',
     handler: (request, h) => handler.getPlaylistActivitiesHandler(request, h),
     options: {
-      auth: 'musicapp_jwt',
-    },
-  },
-];
+      auth: 'musicapp_jwt'
+    }
+  }
+]
 
-module.exports = routes;
+module.exports = routes

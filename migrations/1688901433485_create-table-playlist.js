@@ -1,20 +1,20 @@
 /* eslint-disable camelcase */
 
-exports.shorthands = undefined;
+exports.shorthands = undefined
 
 exports.up = (pgm) => {
   pgm.createTable('playlists', {
     id: {
       type: 'VARCHAR(50)',
-      primaryKey: true,
+      primaryKey: true
     },
     name: {
       type: 'TEXT',
-      notNUll: true,
-    },
-  });
-};
+      notNUll: true
+    }
+  })
+}
 
 exports.down = (pgm) => {
-  pgm.dropTable('playlists');
-};
+  pgm.dropTable('playlists')
+}

@@ -3,38 +3,38 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-underscore-dangle */
 class UserHandler {
-  constructor(service, validator) {
+  constructor (service, validator) {
     this._service = service,
-    this._validator = validator;
+    this._validator = validator
   }
 
-  async postUserHandler(request, h) {
-    this._validator.validateUserPayload(request.payload);
+  async postUserHandler (request, h) {
+    this._validator.validateUserPayload(request.payload)
 
-    const userId = await this._service.addUser(request.payload);
+    const userId = await this._service.addUser(request.payload)
 
     const response = h.response({
       status: 'success',
       message: 'User berhasil ditambahkan',
       data: {
-        userId: userId,
-      },
-    });
-    response.code(201);
-    return response;
+        userId: userId
+      }
+    })
+    response.code(201)
+    return response
   }
 
-  async getUserHandler(request) {
-    const { id } = request.params;
-    const user = await this._service.getUserById(id);
+  async getUserHandler (request) {
+    const { id } = request.params
+    const user = await this._service.getUserById(id)
 
     return {
       status: 'success',
       data: {
-        user,
-      },
-    };
+        user
+      }
+    }
   }
 }
 
-module.exports = UserHandler;
+module.exports = UserHandler

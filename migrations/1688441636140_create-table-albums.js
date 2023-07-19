@@ -4,19 +4,19 @@ exports.up = (pgm) => {
   pgm.createTable('albums', {
     id: {
       type: 'VARCHAR(50)',
-      primaryKey: true,
+      primaryKey: true
     },
     name: {
       type: 'TEXT',
-      notNUll: true,
+      notNUll: true
     },
     year: {
       type: 'INTEGER',
-      notNUll: true,
-    },
-  });
-};
+      notNUll: true
+    }
+  })
+}
 
 exports.down = (pgm) => {
-  pgm.dropTable('albums');
-};
+  pgm.dropTable('albums')
+}

@@ -1,6 +1,6 @@
 /* eslint-disable no-trailing-spaces */
-const AuthenticationHandler = require('./handler');
-const routes = require('./routes');
+const AuthenticationHandler = require('./handler')
+const routes = require('./routes')
  
 module.exports = {
   name: 'authentications',
@@ -9,14 +9,14 @@ module.exports = {
     authenticationServices,
     userServices,
     tokenManager,
-    validator,
+    validator
   }) => {
     const authenticationHandler = new AuthenticationHandler(
       authenticationServices,
       userServices,
       tokenManager,
-      validator,
-    );
-    server.route(routes(authenticationHandler));
-  },
-};
+      validator
+    )
+    server.route(routes(authenticationHandler))
+  }
+}
