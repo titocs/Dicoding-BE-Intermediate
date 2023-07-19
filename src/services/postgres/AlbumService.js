@@ -74,13 +74,10 @@ class AlbumServices {
 
   async addCoverFile (albumId, fileLocation) {
     const query = {
-      text: 'INSERT INTO albums (cover) VALUES($1) WHERE id = $2',
+      text: 'UPDATE albums SET cover = $1 WHERE id = $2',
       values: [fileLocation, albumId]
     }
-    const result = await this._pool.query(query)
-    // if (!result.rows.length) {
-    //   throw new NotFoundError('Gagal memperbarui album. Id tidak ditemukan')
-    // }
+    await this._pool.query(query)
   }
 }
 

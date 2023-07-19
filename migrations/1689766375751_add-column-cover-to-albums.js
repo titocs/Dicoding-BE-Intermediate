@@ -3,7 +3,7 @@
 exports.up = (pgm) => {
   pgm.addColumn('albums', {
     cover: {
-      type: 'VARCHAR(60)'
+      type: 'VARCHAR(200)'
     }
   })
 }
