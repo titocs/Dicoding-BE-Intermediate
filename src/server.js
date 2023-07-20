@@ -53,7 +53,7 @@ const init = async () => {
   const collaborationServices = new CollaborationServices()
   const playlistActivitiesServices = new PlaylistActivitiesServices()
   const playlistServices = new PlaylistServices(collaborationServices)
-  const songServices = new SongServices()
+  const songServices = new SongServices(cacheServices)
   const userServices = new UserServices()
   const albumServices = new AlbumServices(songServices, cacheServices)
   const authenticationServices = new AuthenticationServices()

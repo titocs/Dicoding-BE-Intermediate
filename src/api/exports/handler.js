@@ -1,3 +1,4 @@
+/* eslint-disable object-shorthand */
 /* eslint-disable no-sequences */
 /* eslint-disable no-unused-expressions */
 class ExportHandler {
@@ -12,7 +13,7 @@ class ExportHandler {
     const { id: credentialId } = request.auth.credentials
     const { playlistId } = request.params
     const message = {
-      userId: request.auth.credentials.id,
+      playlistId: playlistId,
       targetEmail: request.payload.targetEmail
     }
     await this._playlistServices.verifyPlaylistAccess(playlistId, credentialId)

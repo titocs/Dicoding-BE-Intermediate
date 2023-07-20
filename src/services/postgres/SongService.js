@@ -6,8 +6,9 @@ const NotFoundError = require('../../exception/NotFoundError')
 const InvariantError = require('../../exception/InvariantError')
 
 class SongServices {
-  constructor () {
+  constructor (cacheServices) {
     this._pool = new Pool()
+    this._cacheServices = cacheServices
   }
 
   async addSongs ({
@@ -22,6 +23,7 @@ class SongServices {
     if (!result.rows[0].id) {
       throw new InvariantError('Album gagal ditambahkan')
     }
+    await this._cacheServices.delete(`songs:${id}`)
     return result.rows[0].id
   }
 
@@ -55,6 +57,7 @@ class SongServices {
     if (!result.rows.length) {
       throw new NotFoundError('Song tidak ditemukan')
     }
+    await this._cacheServices.set(`songs:${id}`, JSON.stringify(result.rows))
     return result.rows.map(utils.mapSongDBToModel)[0]
   }
 
@@ -69,6 +72,7 @@ class SongServices {
     if (!result.rows.length) {
       throw new NotFoundError('Gagal memperbarui catatan. Id tidak ditemukan')
     }
+    await this._cacheServices.delete(`songs:${id}`)
   }
 
   async deleteSongById (id) {
@@ -80,6 +84,7 @@ class SongServices {
     if (!result.rows.length) {
       throw new NotFoundError('Catatan gagal dihapus. Id tidak ditemukan')
     }
+    await this._cacheServices.delete(`songs:${id}`)
   }
 
   async getSongByAlbumId (albumId) {

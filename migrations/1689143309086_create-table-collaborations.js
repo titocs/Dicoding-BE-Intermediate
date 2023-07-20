@@ -1,7 +1,4 @@
 /* eslint-disable max-len */
-/* eslint-disable camelcase */
-exports.shorthands = undefined
-
 exports.up = (pgm) => {
   pgm.createTable('collaborations', {
     id: {

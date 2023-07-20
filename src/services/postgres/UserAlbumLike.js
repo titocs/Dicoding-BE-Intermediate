@@ -13,7 +13,7 @@ class UserAlbumLikes {
   async addLikes (userId, albumId) {
     const id = `likes-${nanoid(16)}`
 
-    const userLiked = await this.checkUserLikedAlbum(userId)
+    const userLiked = await this.checkUserLikedAlbum(userId, albumId)
     if (userLiked.length > 0) {
       throw new InvariantError('User telah melakukan likes')
     }
@@ -59,10 +59,10 @@ class UserAlbumLikes {
     }
   }
 
-  async checkUserLikedAlbum (userId) {
+  async checkUserLikedAlbum (userId, albumId) {
     const query = {
-      text: 'SELECT id FROM user_album_likes WHERE user_id = $1',
-      values: [userId]
+      text: 'SELECT id FROM user_album_likes WHERE user_id = $1 AND album_id = $2',
+      values: [userId, albumId]
     }
     const result = await this._pool.query(query)
     return result.rows

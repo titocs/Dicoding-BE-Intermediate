@@ -30,7 +30,6 @@ class AlbumHandler {
         album
       }
     })
-    response.code(200)
     return response
   }
 
