@@ -1,7 +1,6 @@
 /* eslint-disable object-shorthand */
 /* eslint-disable no-sequences */
 /* eslint-disable no-unused-expressions */
-/* eslint-disable no-underscore-dangle */
 class UserHandler {
   constructor (service, validator) {
     this._service = service,

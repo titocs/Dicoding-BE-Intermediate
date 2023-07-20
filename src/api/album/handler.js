@@ -53,7 +53,6 @@ class AlbumHandler {
       status: 'success',
       message: 'Berhasil menghapus album'
     })
-    response.code(200)
     return response
   }
 }

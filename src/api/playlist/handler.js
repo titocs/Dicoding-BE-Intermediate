@@ -1,8 +1,4 @@
-/* eslint-disable camelcase */
 /* eslint-disable object-shorthand */
-/* eslint-disable no-sequences */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable no-underscore-dangle */
 class PlaylistHandler {
   constructor (playlistServices, playlistActivitiesServices, validator) {
     this._playlistServices = playlistServices

@@ -1,6 +1,5 @@
 /* eslint-disable no-sequences */
 /* eslint-disable no-unused-expressions */
-/* eslint-disable no-underscore-dangle */
 class SongHandler {
   constructor (service, validator) {
     this._service = service,

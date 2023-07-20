@@ -19,7 +19,6 @@ class UploadHandler {
       status: 'success',
       message: 'Sampul berhasil diunggah'
     })
-    console.log(response)
     response.code(201)
     return response
   }

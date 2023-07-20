@@ -1,6 +1,4 @@
 /* eslint-disable camelcase */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable no-underscore-dangle */
 const { nanoid } = require('nanoid')
 const { Pool } = require('pg')
 const InvariantError = require('../../exception/InvariantError')

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 // mengimpor dotenv dan menjalankan konfigurasinya
 require('dotenv').config()
 
@@ -44,15 +43,22 @@ const uploads = require('./api/upload')
 const StorageServices = require('./services/storage/StorageService')
 const UploadValidator = require('./validator/upload')
 
+const userAlbumLikes = require('./api/user_album_likes')
+const UserAlbumLikesServices = require('./services/postgres/UserAlbumLike')
+
+const CacheServices = require('./services/redis/CacheService')
+
 const init = async () => {
+  const cacheServices = new CacheServices()
   const collaborationServices = new CollaborationServices()
   const playlistActivitiesServices = new PlaylistActivitiesServices()
   const playlistServices = new PlaylistServices(collaborationServices)
   const songServices = new SongServices()
-  const albumServices = new AlbumServices(songServices)
   const userServices = new UserServices()
+  const albumServices = new AlbumServices(songServices, cacheServices)
   const authenticationServices = new AuthenticationServices()
   const storageServices = new StorageServices(path.resolve(__dirname, 'api/upload/file/images'))
+  const userAlbumLikesServices = new UserAlbumLikesServices(cacheServices)
 
   const server = Hapi.server({
     port: process.env.PORT,
@@ -158,6 +164,13 @@ const init = async () => {
         storageServices,
         albumServices,
         validator: UploadValidator
+      }
+    },
+    {
+      plugin: userAlbumLikes,
+      options: {
+        userAlbumLikesServices,
+        albumServices
       }
     }
   ])

@@ -1,5 +1,3 @@
-/* eslint-disable object-shorthand */
-/* eslint-disable no-underscore-dangle */
 const { nanoid } = require('nanoid')
 const { Pool } = require('pg')
 const NotFoundError = require('../../exception/NotFoundError')
