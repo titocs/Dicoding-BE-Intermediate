@@ -11,13 +11,13 @@ Pre-requisite:
 **3.** Setup configuration in your ***.env*** file like this:
 
 
-> HOST = localhost
-> PORT = 8000
-> PGUSER = (your postgres username)
-> PGHOST = localhost
-> PGPASSWORD = (your db password)
-> PGDATABASE = (your db name)
-> RABBITMQ_SERVER=amqp://localhost
+> HOST = localhost,
+> PORT = 8000,
+> PGUSER = (your postgres username),
+> PGHOST = localhost,
+> PGPASSWORD = (your db password),
+> PGDATABASE = (your db name),
+> RABBITMQ_SERVER=amqp://localhost,
 > REDIS_SERVER=localhost
 
 **4.** Generate random string using REPL Node
